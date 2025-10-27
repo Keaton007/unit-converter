@@ -5,46 +5,81 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-x-hidden">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Ad Slot - Desktop Only */}
-          <div className="hidden lg:block">
-            <div className="sticky top-8 bottom-4">
+      {/* Desktop Layout - Full Width with Edge Ads */}
+      <div className="hidden lg:block">
+        <div className="flex w-full">
+          {/* Left Side Ads Column */}
+          <div className="w-48 flex-shrink-0">
+            <div className="sticky top-8 bottom-80">
               <AdSlot size="vertical" />
+              <div className="pt-[10px]">
+                <AdSlot size="medium" />
+              </div>
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="flex-1">
-            <Converter />
+          {/* Main Content - Full Width */}
+          <div className="flex-1 px-6 py-8 min-w-0">
+            <main id="main-content" className="max-w-6xl mx-auto">
+              <Converter />
+            </main>
           </div>
 
-          {/* Right Ad Slot - Desktop Only */}
-          <div className="hidden lg:block">
-            <div className="sticky top-8 bottom-4">
+          {/* Right Side Ads Column */}
+          <div className="w-48 flex-shrink-0">
+            <div className="sticky top-8 bottom-80">
               <AdSlot size="vertical" />
+              <div className="pt-[10px]">
+                <AdSlot size="medium" />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Corner Ad Slots */}
-        <div className="mt-12 relative">
-          <div className="absolute left-0 bottom-0">
+        {/* Desktop Bottom Ads */}
+        <div className="relative w-full pb-8">
+          {/* Corner Ads - Positioned absolutely in corners */}
+          <div className="absolute left-0 bottom-8">
             <AdSlot size="corner" />
           </div>
-          <div className="absolute right-0 bottom-0">
+          <div className="absolute right-0 bottom-8">
             <AdSlot size="corner" />
+          </div>
+          
+          {/* Horizontal Ad - Centered */}
+          <div className="flex justify-center px-48">
+            <div className="w-full max-w-4xl">
+              <AdSlot size="horizontal" />
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Horizontal Ad Slot */}
-        <div className="mt-8 max-w-2xl mx-auto">
-          <AdSlot size="horizontal" />
+      {/* Mobile Layout - Stacked with Bottom Ads */}
+      <div className="lg:hidden">
+        <main id="main-content" className="container mx-auto px-6 py-8">
+          <Converter />
+        </main>
+
+        {/* Mobile Bottom Ads */}
+        <div className="px-4 pb-8">
+          <div className="space-y-4">
+            {/* Horizontal Ad */}
+            <div className="w-full">
+              <AdSlot size="horizontal" />
+            </div>
+            
+            {/* Corner Ads Side by Side */}
+            <div className="flex justify-center gap-4">
+              <AdSlot size="corner" />
+              <AdSlot size="corner" />
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
 
       <Footer />
     </div>
