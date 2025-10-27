@@ -116,7 +116,7 @@ const Converter: React.FC = () => {
     // Store current values before swapping
     const currentFromUnit = fromUnit;
     const currentToUnit = toUnit;
-    const currentInputValue = inputValue;
+    // keep for readability; no-op
     const currentResult = result;
     
     // Swap the units
@@ -188,7 +188,7 @@ const Converter: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [inputValue, fromUnit, toUnit, result]);
+  }, [result, swapUnits, clearInput, copyToClipboard]);
 
   const getCategoryIcon = (categoryName: string) => {
     const icons: { [key: string]: string } = {

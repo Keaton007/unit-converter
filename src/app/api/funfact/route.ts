@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 
+declare global {
+  // eslint-disable-next-line no-var
+  var __FUNFACT_CACHE__: Map<string, { fact: string; expires: number }> | undefined;
+}
+
 type Provider = 'openrouter' | 'openai';
 
 function getProvider(): Provider {
@@ -21,15 +26,12 @@ export async function POST(request: Request) {
       fromUnitName,
       fromUnitSymbol,
       toUnitName,
-      toUnitSymbol,
       categoryName,
-      resultValue,
     } = body || {};
 
     if (
       value === undefined ||
       !fromUnitName ||
-      !toUnitName ||
       !categoryName
     ) {
       return NextResponse.json({ error: 'Invalid request payload' }, { status: 400 });
@@ -38,16 +40,16 @@ export async function POST(request: Request) {
     const provider = getProvider();
 
     // Minimal, token-efficient prompts
-    const systemPrompt = 'Return one super randome, factual fun fact (<=22 words). Focus on the input unit itself; use vivid comparisons; no conversions or instructions.';
+    const systemPrompt = 'Return one super random, factual fun fact (<=22 words). Focus on the input unit itself; use vivid comparisons; no conversions or instructions.';
     const prompt = `Fun fact about ${value} ${fromUnitName} (${fromUnitSymbol ?? ''}) in ${categoryName}.`;
 
     // Tiny in-memory cache to reduce duplicate calls
     const cacheKey = `${categoryName}|${fromUnitName}|${fromUnitSymbol}|${value}`;
     const now = Date.now();
-    if (!(globalThis as any).__FUNFACT_CACHE__) {
-      (globalThis as any).__FUNFACT_CACHE__ = new Map<string, { fact: string; expires: number }>();
+    if (!globalThis.__FUNFACT_CACHE__) {
+      globalThis.__FUNFACT_CACHE__ = new Map<string, { fact: string; expires: number }>();
     }
-    const cache: Map<string, { fact: string; expires: number }> = (globalThis as any).__FUNFACT_CACHE__;
+    const cache = globalThis.__FUNFACT_CACHE__!;
     const cached = cache.get(cacheKey);
     if (cached && cached.expires > now) {
       return NextResponse.json({ fact: cached.fact });
@@ -112,7 +114,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ fact });
-  } catch (err) {
+  } catch (_err) {
     return NextResponse.json({ error: 'Unexpected error' }, { status: 500 });
   }
 }

@@ -34,7 +34,7 @@ export async function fetchCurrencyRates(): Promise<Record<string, number> | nul
       liveCurrencyRates = data2.rates as Record<string, number>;
       return liveCurrencyRates;
     }
-  } catch (_err) {
+  } catch {
     // Ignore network errors; we'll fall back to static factors
   }
   return liveCurrencyRates;
