@@ -17,7 +17,7 @@ const AdSlot: React.FC<AdSlotProps> = ({ size, className = '' }) => {
       case 'corner':
         return 'w-48 h-48'; // 300x300 equivalent
       case 'medium':
-        return 'w-48 h-[400px]'; // 300x400 equivalent
+        return 'w-48 h-[600px]'; // 300x600 (updated)
       default:
         return 'w-48 h-[600px]';
     }
@@ -33,7 +33,7 @@ const AdSlot: React.FC<AdSlotProps> = ({ size, className = '' }) => {
             {size === 'horizontal' && '728x90'}
             {size === 'small' && '300x250'}
             {size === 'corner' && '300x300'}
-            {size === 'medium' && '300x400'}
+            {size === 'medium' && '300x600'}
           </div>
         </div>
       </div>
