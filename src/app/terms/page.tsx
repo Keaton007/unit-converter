@@ -180,7 +180,7 @@ export default function TermsAndConditions() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Indemnification</h2>
               <p>
-                You agree to defend, indemnify, and hold harmless Codtive LLC, its officers, directors, employees, agents, and affiliates from and against any claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising from:
+                You agree to defend, indemnify, and hold harmless Codtive LLC, its officers, directors, employees, agents, and affiliates from and against any claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys&apos; fees) arising from:
               </p>
               <ul className="list-disc pl-6 mt-4 space-y-2">
                 <li>Your use or misuse of the Service</li>
