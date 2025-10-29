@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Introduction</h2>
               <p className="mb-4">
-                Welcome to UnitFlow, operated by Codtive LLC ("we," "us," or "our"). We are committed to protecting your privacy and being transparent about our data practices. This Privacy Policy explains how information is collected, used, and shared when you use our website and unit conversion services.
+                Welcome to UnitFlow, operated by Codtive LLC (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). We are committed to protecting your privacy and being transparent about our data practices. This Privacy Policy explains how information is collected, used, and shared when you use our website and unit conversion services.
               </p>
               <p>
                 <strong>Contact Information:</strong> For any privacy-related questions or concerns, please contact us at Keaton@codtive.com.
@@ -43,7 +43,7 @@ export default function PrivacyPolicy() {
                 When you use our service, certain technical information may be collected automatically:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
-                <li><strong>Conversion Data:</strong> When you request a "fun fact" about a unit conversion, we send the conversion value, unit names, and category to our AI service provider (OpenRouter or OpenAI) to generate the fun fact. This data is temporarily cached on our servers for up to 6 hours to improve performance and reduce costs.</li>
+                <li><strong>Conversion Data:</strong> When you request a &quot;fun fact&quot; about a unit conversion, we send the conversion value, unit names, and category to our AI service provider (OpenRouter or OpenAI) to generate the fun fact. This data is temporarily cached on our servers for up to 6 hours to improve performance and reduce costs.</li>
                 <li><strong>Usage Data:</strong> Standard web server logs may collect information such as your IP address, browser type, device information, operating system, referring URLs, and pages visited.</li>
               </ul>
 
@@ -127,7 +127,7 @@ export default function PrivacyPolicy() {
 
               <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-4">7.2 Do Not Track</h3>
               <p className="mb-4">
-                Some browsers have a "Do Not Track" feature. We do not currently respond to Do Not Track signals, but third-party advertising partners may honor these signals according to their own policies.
+                Some browsers have a &quot;Do Not Track&quot; feature. We do not currently respond to Do Not Track signals, but third-party advertising partners may honor these signals according to their own policies.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-4">7.3 California Privacy Rights</h3>

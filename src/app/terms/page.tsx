@@ -23,7 +23,7 @@ export default function TermsAndConditions() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Acceptance of Terms</h2>
               <p className="mb-4">
-                Welcome to UnitFlow, a unit conversion service operated by Codtive LLC ("Company," "we," "us," or "our"). By accessing or using our website and services (collectively, the "Service"), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use the Service.
+                Welcome to UnitFlow, a unit conversion service operated by Codtive LLC (&quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). By accessing or using our website and services (collectively, the &quot;Service&quot;), you agree to be bound by these Terms and Conditions (&quot;Terms&quot;). If you do not agree to these Terms, please do not use the Service.
               </p>
               <p>
                 We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting to the website. Your continued use of the Service after changes are posted constitutes your acceptance of the modified Terms.
@@ -48,7 +48,7 @@ export default function TermsAndConditions() {
                 <li>Data storage</li>
               </ul>
               <p>
-                The Service also includes an optional AI-powered "fun fact" feature that generates interesting information related to your conversions. The Service is provided free of charge and is supported by third-party advertising.
+                The Service also includes an optional AI-powered &quot;fun fact&quot; feature that generates interesting information related to your conversions. The Service is provided free of charge and is supported by third-party advertising.
               </p>
             </section>
 
@@ -91,7 +91,7 @@ export default function TermsAndConditions() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. AI-Generated Content</h2>
               <p className="mb-4">
-                Our "fun fact" feature uses artificial intelligence (AI) services provided by OpenRouter and/or OpenAI to generate interesting information related to your conversions. You acknowledge and agree that:
+                Our &quot;fun fact&quot; feature uses artificial intelligence (AI) services provided by OpenRouter and/or OpenAI to generate interesting information related to your conversions. You acknowledge and agree that:
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>AI-generated content may not always be accurate or factually correct</li>
@@ -143,7 +143,7 @@ export default function TermsAndConditions() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Disclaimer of Warranties</h2>
               <p className="mb-4">
-                THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:
+                THE SERVICE IS PROVIDED ON AN &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li>Implied warranties of merchantability, fitness for a particular purpose, or non-infringement</li>
