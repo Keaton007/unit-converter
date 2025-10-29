@@ -149,7 +149,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Children&apos;s Privacy</h2>
               <p>
-                Our service is not directed to children under the age of 13, and we do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us at Keaton@codtive.com, and we will take appropriate steps to delete such information.
+                Our service is not directed to children under the age of 18, and we do not knowingly collect personal information from children under 18. If you believe we have collected information from a child under 18, please contact us at Keaton@codtive.com, and we will take appropriate steps to delete such information.
               </p>
             </section>
 
