@@ -22,6 +22,7 @@ const AdSenseAd: React.FC<AdSenseAdProps> = ({
   className = '',
 }) => {
   const adRef = useRef<HTMLDivElement>(null);
+  const insRef = useRef<HTMLModElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -54,30 +55,44 @@ const AdSenseAd: React.FC<AdSenseAdProps> = ({
   useEffect(() => {
     if (!isVisible || isLoaded) return;
 
-    // Wait for adsbygoogle script to load
+    // Wait for adsbygoogle script to load and ins element to be in DOM
     const checkAndInit = () => {
-      if (typeof window !== 'undefined' && window.adsbygoogle && adRef.current) {
-        try {
-          // Initialize adsbygoogle for this ad unit
-          window.adsbygoogle = window.adsbygoogle || [];
-          window.adsbygoogle.push({});
-          setIsLoaded(true);
-        } catch (error) {
-          console.error('Error loading AdSense ad:', error);
+      if (typeof window === 'undefined' || !insRef.current) {
+        // Retry if ins element isn't mounted yet
+        if (!isLoaded) {
+          setTimeout(checkAndInit, 50);
         }
-      } else if (!isLoaded) {
-        // Retry after a short delay if script isn't loaded yet
-        setTimeout(checkAndInit, 100);
+        return;
+      }
+
+      // Initialize adsbygoogle array if it doesn't exist
+      window.adsbygoogle = window.adsbygoogle || [];
+      
+      try {
+        // Push empty object to initialize this ad unit
+        // AdSense script will automatically process this when it loads
+        window.adsbygoogle.push({});
+        setIsLoaded(true);
+      } catch (error) {
+        console.error('Error loading AdSense ad:', error);
+        // Still mark as loaded to prevent infinite retries
+        setIsLoaded(true);
       }
     };
 
-    checkAndInit();
+    // Small delay to ensure ins element is in DOM
+    const timeoutId = setTimeout(checkAndInit, 100);
+    
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [isVisible, isLoaded]);
 
   return (
     <div ref={adRef} className={className} style={style}>
       {isVisible && (
         <ins
+          ref={insRef}
           className="adsbygoogle"
           style={{ display: 'block', ...style }}
           data-ad-client="ca-pub-5769093982077943"
