@@ -1,11 +1,13 @@
 import React from 'react';
+import AdSenseAd from './AdSenseAd';
 
 interface AdSlotProps {
   size: 'vertical' | 'horizontal' | 'small' | 'corner' | 'medium';
   className?: string;
+  adSlot?: string;
 }
 
-const AdSlot: React.FC<AdSlotProps> = ({ size, className = '' }) => {
+const AdSlot: React.FC<AdSlotProps> = ({ size, className = '', adSlot }) => {
   const getDimensions = () => {
     switch (size) {
       case 'vertical':
@@ -23,9 +25,18 @@ const AdSlot: React.FC<AdSlotProps> = ({ size, className = '' }) => {
     }
   };
 
+  // Generate ad slot ID if not provided (uses size as identifier)
+  // In production, you should use actual AdSense ad unit IDs from your AdSense account
+  const slotId = adSlot || `placeholder-${size}`;
+
   return (
     <div className={`${getDimensions()} ${className}`}>
-      {/* Ad space reserved - placeholder hidden in production */}
+      <AdSenseAd
+        adSlot={slotId}
+        adFormat="auto"
+        className="w-full h-full"
+        style={{ minHeight: '100px' }}
+      />
     </div>
   );
 };
