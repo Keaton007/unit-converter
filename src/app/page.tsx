@@ -29,7 +29,7 @@ export default function Home() {
               <div className="mb-8 bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Free Online Unit Converter</h2>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  UnitFlow is your free, fast, and accurate tool for converting between hundreds of different measurement units across 12 major categories including length, weight, temperature, volume, area, speed, time, data, pressure, energy, and currency. Whether you're converting meters to feet, kilograms to pounds, or Celsius to Fahrenheit, our intuitive interface makes unit conversion simple and educational.
+                  UnitFlow is your free, fast, and accurate tool for converting between hundreds of different measurement units across 12 major categories including length, weight, temperature, volume, area, speed, time, data, pressure, energy, and currency. Whether you&apos;re converting meters to feet, kilograms to pounds, or Celsius to Fahrenheit, our intuitive interface makes unit conversion simple and educational.
                 </p>
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Beyond just converting units, we provide comprehensive educational content about each measurement type, including their historical origins, real-world applications, and interesting facts. Learn how the meter was originally defined, why we use different temperature scales, or discover the practical uses of various measurement units in everyday life.

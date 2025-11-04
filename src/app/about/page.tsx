@@ -25,7 +25,7 @@ export default function AboutPage() {
             <section>
               <h2 className="text-3xl font-bold text-gray-900 mb-4">What is UnitFlow?</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                UnitFlow is a comprehensive, free online unit converter that makes it easy to convert between hundreds of different measurement units across 12 major categories. Whether you're a student, professional, chef, engineer, or traveler, UnitFlow helps you convert measurements instantly with precision and clarity.
+                UnitFlow is a comprehensive, free online unit converter that makes it easy to convert between hundreds of different measurement units across 12 major categories. Whether you&apos;re a student, professional, chef, engineer, or traveler, UnitFlow helps you convert measurements instantly with precision and clarity.
               </p>
               <p className="text-gray-700 leading-relaxed">
                 Our mission is to provide the most intuitive, accurate, and educational unit conversion experience available online—completely free of charge.
@@ -70,14 +70,14 @@ export default function AboutPage() {
                   <span className="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold mr-4">2</span>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Enter Your Value</h4>
-                    <p className="text-gray-700">Input the number you want to convert in the "From" field</p>
+                    <p className="text-gray-700">Input the number you want to convert in the &quot;From&quot; field</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <span className="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold mr-4">3</span>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Choose Your Units</h4>
-                    <p className="text-gray-700">Select the unit you're converting from and the unit you're converting to</p>
+                    <p className="text-gray-700">Select the unit you&apos;re converting from and the unit you&apos;re converting to</p>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -197,7 +197,7 @@ export default function AboutPage() {
                   <svg className="w-6 h-6 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span>Clean, modern interface that's easy to use</span>
+                  <span>Clean, modern interface that&apos;s easy to use</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-6 h-6 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   conversionCategories, 
   convertValue, 
@@ -58,7 +58,7 @@ const Converter: React.FC = () => {
           } else {
             setFunFact('');
           }
-        } catch (_err) {
+        } catch {
           setFunFact('');
         } finally {
           setLoadingFact(false);
@@ -90,7 +90,7 @@ const Converter: React.FC = () => {
         }
       });
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, inputValue]);
 
   const handleCategoryChange = (categoryName: string) => {
     const category = conversionCategories.find(cat => cat.name === categoryName);
@@ -113,7 +113,7 @@ const Converter: React.FC = () => {
     }
   };
 
-  const swapUnits = () => {
+  const swapUnits = useCallback(() => {
     // Store current values before swapping
     const currentFromUnit = fromUnit;
     const currentToUnit = toUnit;
@@ -128,14 +128,14 @@ const Converter: React.FC = () => {
     if (currentResult && !isNaN(Number(sanitizeNumericInput(currentResult)))) {
       setInputValue(currentResult);
     }
-  };
+  }, [fromUnit, toUnit, result]);
 
-  const clearInput = () => {
+  const clearInput = useCallback(() => {
     setInputValue('');
     setResult('');
-  };
+  }, []);
 
-  const copyToClipboard = async () => {
+  const copyToClipboard = useCallback(async () => {
     if (result) {
       try {
         await navigator.clipboard.writeText(result);
@@ -143,7 +143,7 @@ const Converter: React.FC = () => {
         console.error('Failed to copy text: ', err);
       }
     }
-  };
+  }, [result]);
 
   const handleQuickConversion = (fromValue: number, fromUnitName: string, toUnitName: string, categoryName: string) => {
     // Find the category
@@ -294,7 +294,7 @@ const Converter: React.FC = () => {
 
       <div id="category-selector" className="mb-8">
         <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {conversionCategories.map((category, index) => (
+          {conversionCategories.map((category) => (
             <button
               key={category.name}
               onClick={() => handleCategoryChange(category.name)}

@@ -95,7 +95,7 @@ export default function GuidesPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Master Unit Conversions</h2>
             <p className="text-lg text-indigo-100 mb-6">
-              Whether you're a student, professional, or just curious, our comprehensive guides help you understand measurement systems from their historical origins to modern applications.
+              Whether you&apos;re a student, professional, or just curious, our comprehensive guides help you understand measurement systems from their historical origins to modern applications.
             </p>
             <Link
               href="/"

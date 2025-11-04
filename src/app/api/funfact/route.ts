@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
 declare global {
-  // eslint-disable-next-line no-var
   var __FUNFACT_CACHE__: Map<string, { fact: string; expires: number }> | undefined;
 }
 
@@ -25,7 +24,6 @@ export async function POST(request: Request) {
       value,
       fromUnitName,
       fromUnitSymbol,
-      toUnitName,
       categoryName,
     } = body || {};
 
@@ -114,7 +112,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ fact });
-  } catch (_err) {
+  } catch {
     return NextResponse.json({ error: 'Unexpected error' }, { status: 500 });
   }
 }
