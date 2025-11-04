@@ -10,6 +10,7 @@ import {
   type ConversionCategory,
   type ConversionUnit 
 } from '@/utils/conversions';
+import { categoryEducation } from '@/utils/educationalContent';
 
 const Converter: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<ConversionCategory>(conversionCategories[0]);
@@ -482,6 +483,90 @@ const Converter: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Educational Content Section */}
+      {categoryEducation[selectedCategory.name] && (
+        <div id="educational-content" className="mt-12 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 md:p-12 shadow-lg border border-indigo-100">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center mb-6">
+              <svg className={`w-8 h-8 ${getCategoryColor(selectedCategory.name)} mr-3`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={getCategoryIcon(selectedCategory.name)} />
+              </svg>
+              <h3 className="text-3xl font-bold text-gray-900">
+                Understanding {selectedCategory.name} Measurements
+              </h3>
+            </div>
+
+            <div className="space-y-8">
+              {/* Overview */}
+              <section className="bg-white rounded-2xl p-6 shadow-md">
+                <h4 className="text-xl font-semibold text-gray-900 mb-3">Overview</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {categoryEducation[selectedCategory.name].overview}
+                </p>
+              </section>
+
+              {/* History */}
+              <section className="bg-white rounded-2xl p-6 shadow-md">
+                <h4 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  Historical Background
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {categoryEducation[selectedCategory.name].history}
+                </p>
+              </section>
+
+              {/* Applications */}
+              <section className="bg-white rounded-2xl p-6 shadow-md">
+                <h4 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Real-World Applications
+                </h4>
+                <ul className="space-y-3">
+                  {categoryEducation[selectedCategory.name].applications.map((app, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-gray-700">{app}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              {/* Interesting Facts */}
+              <section className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 shadow-md border border-blue-100">
+                <h4 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  Interesting Facts
+                </h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {categoryEducation[selectedCategory.name].interestingFacts.map((fact, idx) => (
+                    <div key={idx} className="bg-white rounded-lg p-4 shadow-sm">
+                      <p className="text-gray-700 text-sm leading-relaxed">{fact}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Related Units */}
+              <section className="bg-white rounded-2xl p-6 shadow-md">
+                <h4 className="text-xl font-semibold text-gray-900 mb-3">Related Concepts</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {categoryEducation[selectedCategory.name].relatedUnits}
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

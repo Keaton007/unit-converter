@@ -16,15 +16,43 @@ const Header: React.FC = () => {
             <p className="text-xs text-gray-500">Smart Unit Converter</p>
           </div>
         </Link>
-        <div className="flex items-center space-x-3">
+        <nav className="hidden md:flex items-center space-x-1">
           <Link 
             href="/"
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium text-sm flex items-center space-x-2"
+            className="px-4 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors font-medium text-sm"
+          >
+            Home
+          </Link>
+          <Link 
+            href="/guides"
+            className="px-4 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors font-medium text-sm"
+          >
+            Guides
+          </Link>
+          <Link 
+            href="/about"
+            className="px-4 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-lg transition-colors font-medium text-sm"
+          >
+            About
+          </Link>
+          <Link 
+            href="/"
+            className="ml-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium text-sm flex items-center space-x-2"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+              <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
             </svg>
-            <span>Home</span>
+            <span>Convert</span>
+          </Link>
+        </nav>
+        
+        {/* Mobile menu button */}
+        <div className="md:hidden">
+          <Link 
+            href="/"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium text-sm"
+          >
+            Menu
           </Link>
         </div>
       </div>
