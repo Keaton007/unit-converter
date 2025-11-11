@@ -11,6 +11,7 @@ import {
   type ConversionUnit 
 } from '@/utils/conversions';
 import { categoryEducation } from '@/utils/educationalContent';
+import AdSlot from '@/components/AdSlot';
 
 const Converter: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<ConversionCategory>(conversionCategories[0]);
@@ -320,9 +321,9 @@ const Converter: React.FC = () => {
         </div>
         
         <div className="p-8">
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             {/* From Section */}
-            <div id="from-section" className="space-y-4 w-96">
+            <div id="from-section" className="space-y-4 w-full md:w-96">
               <label className="block text-sm font-semibold text-gray-700 mb-2">From</label>
               <div className="relative">
                 <input 
@@ -359,20 +360,25 @@ const Converter: React.FC = () => {
               </div>
             </div>
 
-            {/* Swap Button - Centered */}
+            {/* Swap Button - Centered, rotates on mobile */}
             <div className="flex items-center justify-center">
               <button 
                 onClick={swapUnits}
                 className="p-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full hover:shadow-lg transform hover:scale-110 transition-all duration-200"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {/* Horizontal arrows for desktop */}
+                <svg className="w-6 h-6 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+                {/* Vertical arrows for mobile */}
+                <svg className="w-6 h-6 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                 </svg>
               </button>
             </div>
 
             {/* To Section */}
-            <div id="to-section" className="space-y-4 w-96">
+            <div id="to-section" className="space-y-4 w-full md:w-96">
               <label className="block text-sm font-semibold text-gray-700 mb-2">To</label>
               <div className="relative">
                 <input 
@@ -482,6 +488,11 @@ const Converter: React.FC = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Mobile Ad Space - Only visible on mobile/tablet */}
+      <div className="mt-8 lg:hidden">
+        <AdSlot size="horizontal" adSlot="4178545049" />
       </div>
 
       {/* Educational Content Section */}

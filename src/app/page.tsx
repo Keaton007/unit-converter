@@ -15,9 +15,9 @@ export default function Home() {
           {/* Left Side Ads Column */}
           <div className="w-48 flex-shrink-0">
             <div className="sticky top-8 bottom-80">
-              <AdSlot size="vertical" />
+              <AdSlot size="vertical" adSlot="9685473850" />
               <div className="pt-[10px]">
-                <AdSlot size="medium" />
+                <AdSlot size="medium" adSlot="7059310511" />
               </div>
             </div>
           </div>
@@ -68,9 +68,9 @@ export default function Home() {
           {/* Right Side Ads Column */}
           <div className="w-48 flex-shrink-0">
             <div className="sticky top-8 bottom-80">
-              <AdSlot size="vertical" />
+              <AdSlot size="vertical" adSlot="6804708389" />
               <div className="pt-[10px]">
-                <AdSlot size="medium" />
+                <AdSlot size="medium" adSlot="5491626715" />
               </div>
             </div>
           </div>
@@ -80,16 +80,16 @@ export default function Home() {
         <div className="relative w-full pb-8">
           {/* Corner Ads - Positioned absolutely in corners */}
           <div className="absolute left-0 bottom-8">
-            <AdSlot size="corner" />
+            <AdSlot size="corner" adSlot="8117790051" />
           </div>
           <div className="absolute right-0 bottom-8">
-            <AdSlot size="corner" />
+            <AdSlot size="corner" adSlot="6087233526" />
           </div>
           
           {/* Horizontal Ad - Centered */}
           <div className="flex justify-center px-48">
             <div className="w-full max-w-4xl">
-              <AdSlot size="horizontal" />
+              <AdSlot size="horizontal" adSlot="1743953395" adFormat="autorelaxed" />
             </div>
           </div>
         </div>
@@ -131,18 +131,12 @@ export default function Home() {
           </div>
         </main>
 
-        {/* Mobile Bottom Ads */}
+        {/* Mobile Bottom Ads - Minimal for better UX */}
         <div className="px-4 pb-8">
           <div className="space-y-4">
-            {/* Horizontal Ad */}
+            {/* Single responsive ad - less intrusive on mobile */}
             <div className="w-full">
-              <AdSlot size="horizontal" />
-            </div>
-            
-            {/* Corner Ads Side by Side */}
-            <div className="flex justify-center gap-4">
-              <AdSlot size="corner" />
-              <AdSlot size="corner" />
+              <AdSlot size="horizontal" adSlot="8117790051" />
             </div>
           </div>
         </div>

@@ -5,9 +5,10 @@ interface AdSlotProps {
   size: 'vertical' | 'horizontal' | 'small' | 'corner' | 'medium';
   className?: string;
   adSlot?: string;
+  adFormat?: string;
 }
 
-const AdSlot: React.FC<AdSlotProps> = ({ size, className = '', adSlot }) => {
+const AdSlot: React.FC<AdSlotProps> = ({ size, className = '', adSlot, adFormat = 'auto' }) => {
   const getDimensions = () => {
     switch (size) {
       case 'vertical':
@@ -33,7 +34,7 @@ const AdSlot: React.FC<AdSlotProps> = ({ size, className = '', adSlot }) => {
     <div className={`${getDimensions()} ${className}`}>
       <AdSenseAd
         adSlot={slotId}
-        adFormat="auto"
+        adFormat={adFormat}
         className="w-full h-full"
         style={{ minHeight: '100px' }}
       />
