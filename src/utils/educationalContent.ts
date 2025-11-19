@@ -249,6 +249,26 @@ export const categoryEducation: Record<string, CategoryEducation> = {
       'Some countries use the US dollar as their official currency (dollarization)'
     ],
     relatedUnits: 'Currency relates to economics, purchasing power, and can be compared through exchange rates and purchasing power parity (PPP).'
+  },
+  'Cooking': {
+    categoryName: 'Cooking',
+    overview: 'Cooking conversions translate between culinary measurements used in recipes around the world, such as cups, teaspoons, tablespoons, milliliters, and more. Home cooks, bakers, and food scientists rely on accurate conversions to scale recipes, convert international cookbooks, and maintain consistent flavor.',
+    history: 'Household measurements evolved from everyday objects. Tablespoons and teaspoons originated from literal flatware, while cups were often standard drinking vessels. The United States popularized the 240 mL “cup,” whereas Australia, Canada, and the UK settled on a metric 250 mL version. Modern cookbooks now list metric equivalents, and most digital scales support dual units for both volume and weight.',
+    applications: [
+      'Recipe scaling: double or halve ingredient quantities without compromising ratios',
+      'International cooking: convert European metric recipes to US customary measurements',
+      'Baking science: swap teaspoons for grams when measuring leavening agents or spices',
+      'Beverage programs: size cocktails and syrups precisely using fluid-ounce conversions',
+      'Meal prep: batch sauces, soups, or dressings while keeping flavor consistent',
+      'Food education: teach students the relationship between teaspoons, tablespoons, and cups'
+    ],
+    interestingFacts: [
+      'One US tablespoon equals three teaspoons, but the metric tablespoon equals four teaspoons',
+      'A “pinch” is historically the amount of seasoning you can hold between your thumb and forefinger, roughly 0.3 mL',
+      'Professional bakers prefer grams because flour volume fluctuates with humidity and packing',
+      'The Australian tablespoon (20 mL) is larger than the US tablespoon (14.7868 mL)'
+    ],
+    relatedUnits: 'Cooking measurements bridge volume and mass. Pairing this category with weight (grams, ounces) lets bakers convert to more precise measurements when needed. Ingredient density data references the King Arthur Baking Ingredient Weight Chart (https://www.kingarthurbaking.com/learn/ingredient-weight-chart).'
   }
 };
 

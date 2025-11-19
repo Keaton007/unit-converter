@@ -15,6 +15,7 @@ const categoryIcons: { [key: string]: string } = {
   'Weight': 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
   'Temperature': 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
   'Volume': 'M12 2.25c-3.5 3.5-6.75 7.25-6.75 10.5a6.75 6.75 0 1013.5 0c0-3.25-3.25-7-6.75-10.5z',
+  'Cooking': 'M12 2l3 8H9l3-8zm-4 10h8v8a4 4 0 11-8 0v-8z',
   'Area': 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z',
   'Speed': 'M13 10V3L4 14h7v7l9-11h-7z',
   'Time': 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
@@ -30,6 +31,7 @@ const categoryColors: { [key: string]: string } = {
   'Weight': 'text-purple-500 bg-purple-50',
   'Temperature': 'text-red-500 bg-red-50',
   'Volume': 'text-blue-500 bg-blue-50',
+  'Cooking': 'text-orange-500 bg-orange-50',
   'Area': 'text-lime-600 bg-lime-50',
   'Speed': 'text-amber-500 bg-amber-50',
   'Time': 'text-gray-600 bg-gray-50',
@@ -105,6 +107,36 @@ export default function GuidesPage() {
             </Link>
           </div>
         </div>
+
+        <section id="quality" className="mt-12 bg-white rounded-3xl shadow-lg border border-gray-100 p-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            <div>
+              <p className="text-sm uppercase tracking-wide text-indigo-500 font-semibold mb-2">Quality promise</p>
+              <h2 className="text-3xl font-bold text-gray-900">Every guide cites a primary source</h2>
+              <p className="text-gray-600 mt-3">
+                We reference NIST, ISO, and government publications for conversion factors. Pages include updated-on timestamps so you know when a fact was last reviewed.
+              </p>
+            </div>
+            <div className="md:col-span-2 grid sm:grid-cols-2 gap-4">
+              <div className="p-5 rounded-2xl border border-gray-200 bg-gray-50">
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">Editorial review</h3>
+                <p className="text-gray-600">Two-person review (technical + editorial) before publishing.</p>
+              </div>
+              <div className="p-5 rounded-2xl border border-gray-200 bg-gray-50">
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">Freshness</h3>
+                <p className="text-gray-600">Quarterly sweep for every evergreen guide, or sooner if standards change.</p>
+              </div>
+              <div className="p-5 rounded-2xl border border-gray-200 bg-gray-50">
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">User feedback</h3>
+                <p className="text-gray-600">Corrections acknowledged within 48 hours via the contact center.</p>
+              </div>
+              <div className="p-5 rounded-2xl border border-gray-200 bg-gray-50">
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">Accessibility</h3>
+                <p className="text-gray-600">Alt text, semantic headings, and keyboard-friendly cards.</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

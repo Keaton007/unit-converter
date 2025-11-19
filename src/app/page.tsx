@@ -4,6 +4,181 @@ import AdSlot from '@/components/AdSlot';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 
+const popularConverters = [
+  {
+    title: 'Meters to Feet',
+    description: 'Engineering favorite with real-world site planning examples.',
+    href: '/converters/meters-to-feet',
+    pills: ['Length', 'Building', 'Metric ↔ Imperial'],
+  },
+  {
+    title: 'Kilograms to Pounds',
+    description: 'Instant cooking + fitness conversions with macro tips.',
+    href: '/converters/kilograms-to-pounds',
+    pills: ['Weight', 'Nutrition', 'Shipping'],
+  },
+  {
+    title: 'Celsius to Fahrenheit',
+    description: 'Travel-friendly temperature walkthrough and formula explainers.',
+    href: '/converters/celsius-to-fahrenheit',
+    pills: ['Temperature', 'Science', 'Travel'],
+  },
+  {
+    title: 'Liters to Gallons',
+    description: 'Covers US vs UK gallons plus kitchen-ready conversion charts.',
+    href: '/converters/liters-to-gallons',
+    pills: ['Volume', 'Cooking', 'Beverage'],
+  },
+  {
+    title: 'PSI to kPa',
+    description: 'Tire, HVAC, and scuba safety examples with quick reference table.',
+    href: '/converters/psi-to-kpa',
+    pills: ['Pressure', 'Automotive', 'Safety'],
+  },
+  {
+    title: 'USD to EUR',
+    description: 'Live rates + budgeting worksheet for travelers and freelancers.',
+    href: '/converters/usd-to-eur',
+    pills: ['Currency', 'Finance', 'Travel'],
+  },
+  {
+    title: 'Cups to Milliliters',
+    description: 'Culinary cheat sheet with cup sizes, spoons, and bar-friendly measurements.',
+    href: '/converters/cups-to-milliliters',
+    pills: ['Cooking', 'Baking', 'Kitchen'],
+  },
+];
+
+const trustSignals = [
+  {
+    title: 'Expert-reviewed content',
+    description: 'Every guide is checked against NIST handbooks and ISO standards. Update notes live on the Editorial Guidelines page.',
+    href: '/editorial',
+    label: 'See our editorial playbook',
+  },
+  {
+    title: 'Transparent monetization',
+    description: 'We limit ad density, separate content from ads, and disclose partners in our Ad Policy.',
+    href: '/advertising',
+    label: 'Read the Ad Policy',
+  },
+  {
+    title: 'Human support',
+    description: 'Need a conversion explained? Reach the UnitFlow team directly via the contact center.',
+    href: '/contact',
+    label: 'Contact us',
+  },
+];
+
+const resourceHighlights = [
+  {
+    title: 'Measurement Starter Kits',
+    description: 'Understand formulas, units, and pitfalls for each category.',
+    href: '/guides',
+  },
+  {
+    title: 'Quality Checklist',
+    description: 'We document update history, data sources, and review cadence.',
+    href: '/editorial',
+  },
+  {
+    title: 'Request a Converter',
+    description: 'Need a specialized unit? Tell us and we will add it to the roadmap.',
+    href: '/contact',
+  },
+];
+
+const PopularConvertersSection = () => (
+  <section id="popular-converters" className="mt-12">
+    <div className="flex items-center justify-between mb-4">
+      <div>
+        <p className="text-sm uppercase tracking-wide text-indigo-500 font-semibold">Popular converters</p>
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-900">High-value conversion playbooks</h3>
+        <p className="text-gray-600 mt-2">
+          Deep dives with formulas, contextual examples, FAQs, and pre-configured calculator shortcuts.
+        </p>
+      </div>
+      <Link
+        href="/guides"
+        className="hidden md:inline-flex items-center px-4 py-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800"
+      >
+        Browse all guides →
+      </Link>
+    </div>
+    <div className="grid md:grid-cols-2 gap-6">
+      {popularConverters.map((converter) => (
+        <Link
+          key={converter.title}
+          href={converter.href}
+          className="group bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-200 flex flex-col"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="text-xl font-semibold text-gray-900">{converter.title}</h4>
+            <svg
+              className="w-5 h-5 text-gray-400 group-hover:text-indigo-600 transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+          <p className="text-gray-600 flex-1">{converter.description}</p>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {converter.pills.map((pill) => (
+              <span key={pill} className="px-3 py-1 text-xs font-semibold bg-indigo-50 text-indigo-700 rounded-full">
+                {pill}
+              </span>
+            ))}
+          </div>
+        </Link>
+      ))}
+    </div>
+  </section>
+);
+
+const TrustSignalsSection = () => (
+  <section id="trust-signals" className="mt-12 bg-white rounded-3xl p-8 border border-gray-100 shadow-lg">
+    <p className="text-sm uppercase tracking-wide text-indigo-500 font-semibold mb-2">Trust Center</p>
+    <h3 className="text-3xl font-bold text-gray-900 mb-4">Why people trust UnitFlow</h3>
+    <div className="grid md:grid-cols-3 gap-6">
+      {trustSignals.map((signal) => (
+        <div key={signal.title} className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
+          <h4 className="text-xl font-semibold text-gray-900 mb-2">{signal.title}</h4>
+          <p className="text-gray-700 mb-4">{signal.description}</p>
+          <Link href={signal.href} className="inline-flex items-center text-indigo-600 font-semibold">
+            {signal.label}
+            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+const ResourceHighlightsSection = () => (
+  <section className="mt-12">
+    <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-3xl p-8 text-white shadow-xl">
+      <div className="grid md:grid-cols-3 gap-8">
+        {resourceHighlights.map((resource) => (
+          <div key={resource.title}>
+            <h4 className="text-xl font-semibold mb-2">{resource.title}</h4>
+            <p className="text-indigo-100 mb-3">{resource.description}</p>
+            <Link href={resource.href} className="inline-flex items-center font-semibold text-white/90 hover:text-white">
+              Learn more
+              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-x-hidden">
@@ -51,12 +226,16 @@ export default function Home() {
               </div>
               
               <Converter />
-              
+
+              <PopularConvertersSection />
+              <TrustSignalsSection />
+              <ResourceHighlightsSection />
+
               {/* Additional Context Section */}
               <div className="mt-12 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 md:p-8 border border-indigo-100">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Why Unit Conversion Matters</h3>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Unit conversion is essential in our globalized world. From cooking recipes that use different measurement systems to international business transactions, scientific research, engineering projects, and travel—understanding how to convert between units is a fundamental skill. Our converter helps you bridge the gap between metric and imperial systems, scientific and everyday measurements, and different cultural measurement standards.
+                  Unit conversion is essential in our globalized world. From cooking recipes that use different measurement systems to international business transactions, scientific research, engineering projects, and travel. Understanding how to convert between units is a fundamental skill. Our converter helps you bridge the gap between metric and imperial systems, scientific and everyday measurements, and different cultural measurement standards.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   Explore our comprehensive <Link href="/guides" className="text-indigo-600 hover:text-indigo-700 underline font-medium">conversion guides</Link> to deepen your understanding of each measurement category, learn about their history, discover real-world applications, and master unit conversions with confidence.
@@ -121,7 +300,11 @@ export default function Home() {
           </div>
           
           <Converter />
-          
+
+          <PopularConvertersSection />
+          <TrustSignalsSection />
+          <ResourceHighlightsSection />
+
           {/* Additional Context Section */}
           <div className="mt-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
             <h3 className="text-lg font-bold text-gray-900 mb-2">Why Unit Conversion Matters</h3>

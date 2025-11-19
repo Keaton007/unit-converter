@@ -28,7 +28,7 @@ export default function AboutPage() {
                 UnitFlow is a comprehensive, free online unit converter that makes it easy to convert between hundreds of different measurement units across 12 major categories. Whether you&apos;re a student, professional, chef, engineer, or traveler, UnitFlow helps you convert measurements instantly with precision and clarity.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Our mission is to provide the most intuitive, accurate, and educational unit conversion experience available online—completely free of charge.
+                Our mission is to provide the most intuitive, accurate, and educational unit conversion experience available online and completely free of charge.
               </p>
             </section>
 
@@ -39,7 +39,7 @@ export default function AboutPage() {
               <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 mb-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">The Mathematical Foundation</h3>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Unit conversion is based on conversion factors—mathematical ratios that define the relationship between different units of measurement. For example:
+                Unit conversion is based on conversion factors, which are mathematical ratios that define the relationship between different units of measurement. For example:
                 </p>
                 <ul className="space-y-2 text-gray-700">
                   <li className="flex items-start">
@@ -131,7 +131,7 @@ export default function AboutPage() {
                     </svg>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">Mobile Friendly</h3>
-                  <p className="text-gray-700">Works perfectly on all devices—desktop, tablet, and mobile</p>
+                  <p className="text-gray-700">Works perfectly on all devices: desktop, tablet, and mobile</p>
                 </div>
 
                 <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">

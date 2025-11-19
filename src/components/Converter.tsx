@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import Link from 'next/link';
 import { 
   conversionCategories, 
   convertValue, 
@@ -12,6 +13,16 @@ import {
 } from '@/utils/conversions';
 import { categoryEducation } from '@/utils/educationalContent';
 import AdSlot from '@/components/AdSlot';
+import { cookingIngredients, DEFAULT_COOKING_INGREDIENT_ID } from '@/utils/cookingIngredients';
+
+const COOKING_WEIGHT_FACTORS: Record<string, number> = {
+  Grams: 1,
+  Kilograms: 1000,
+  Ounces: 28.3495,
+  Pounds: 453.592,
+};
+
+const isCookingWeightUnit = (unitName: string) => Boolean(COOKING_WEIGHT_FACTORS[unitName]);
 
 const Converter: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<ConversionCategory>(conversionCategories[0]);
@@ -21,6 +32,32 @@ const Converter: React.FC = () => {
   const [result, setResult] = useState<string>('');
   const [funFact, setFunFact] = useState<string>('');
   const [loadingFact, setLoadingFact] = useState<boolean>(false);
+  const [selectedIngredientId, setSelectedIngredientId] = useState<string>(DEFAULT_COOKING_INGREDIENT_ID);
+  const pendingQuickConversion = useRef<{
+    categoryName: string;
+    fromUnitName: string;
+    toUnitName: string;
+    inputValue: string;
+  } | null>(null);
+  const formatUnitLabel = (unit: ConversionUnit) => {
+    const symbol = unit.symbol?.trim() ?? '';
+    const showSymbol = Boolean(symbol) && !symbol.includes('(') && symbol.toLowerCase() !== unit.name.toLowerCase();
+    return showSymbol ? `${unit.name} (${symbol})` : unit.name;
+  };
+  const selectedIngredient = useMemo(
+    () => cookingIngredients.find((ingredient) => ingredient.id === selectedIngredientId) || cookingIngredients[0],
+    [selectedIngredientId]
+  );
+  const applyUnitsForCategory = useCallback(
+    (category: ConversionCategory, fromUnitName?: string, toUnitName?: string) => {
+      const fromUnitCandidate = fromUnitName ? getUnitByName(category, fromUnitName) : undefined;
+      const toUnitCandidate = toUnitName ? getUnitByName(category, toUnitName) : undefined;
+      setFromUnit(fromUnitCandidate || category.units[0]);
+      setToUnit(toUnitCandidate || category.units[1]);
+    },
+    []
+  );
+
 
   const sanitizeNumericInput = (value: string): string => {
     // Allow users to type thousands separators like commas; strip them for math
@@ -28,11 +65,54 @@ const Converter: React.FC = () => {
     return value.replace(/,/g, '').trim();
   };
 
+  const convertCookingValue = useCallback(
+    (
+      value: number,
+      fromUnitArg: ConversionUnit,
+      toUnitArg: ConversionUnit,
+      ingredientDensity: number
+    ) => {
+      const fromIsWeight = isCookingWeightUnit(fromUnitArg.name);
+      const toIsWeight = isCookingWeightUnit(toUnitArg.name);
+
+      const toMilliliters = (val: number, unit: ConversionUnit) => val * unit.factor;
+      const toGrams = (val: number, unit: ConversionUnit) => val * (COOKING_WEIGHT_FACTORS[unit.name] || 1);
+
+      let valueInMilliliters: number;
+      let valueInGrams: number;
+
+      if (fromIsWeight) {
+        valueInGrams = toGrams(value, fromUnitArg);
+        valueInMilliliters = valueInGrams / ingredientDensity;
+      } else {
+        valueInMilliliters = toMilliliters(value, fromUnitArg);
+        valueInGrams = valueInMilliliters * ingredientDensity;
+      }
+
+      if (toIsWeight) {
+        const factor = COOKING_WEIGHT_FACTORS[toUnitArg.name] || 1;
+        return valueInGrams / factor;
+      }
+
+      return valueInMilliliters / toUnitArg.factor;
+    },
+    []
+  );
+
   // Update result when inputs change
   useEffect(() => {
     const parsed = Number(sanitizeNumericInput(inputValue || ''));
     if (inputValue && inputValue.trim() !== '' && !isNaN(parsed)) {
-      const convertedValue = convertValue(parsed, fromUnit, toUnit, selectedCategory);
+      const involvesCookingWeight =
+        selectedCategory.name === 'Cooking' &&
+        (isCookingWeightUnit(fromUnit.name) || isCookingWeightUnit(toUnit.name));
+
+      const convertedValue =
+        selectedCategory.name === 'Cooking'
+          ? involvesCookingWeight
+            ? convertCookingValue(parsed, fromUnit, toUnit, selectedIngredient.density_g_per_ml)
+            : convertValue(parsed, fromUnit, toUnit, selectedCategory)
+          : convertValue(parsed, fromUnit, toUnit, selectedCategory);
       setResult(formatNumber(convertedValue));
       // Trigger fun fact only when there is a valid, non-empty value
       const controller = new AbortController();
@@ -49,6 +129,7 @@ const Converter: React.FC = () => {
               toUnitName: toUnit.name,
               toUnitSymbol: toUnit.symbol,
               categoryName: selectedCategory.name,
+              ingredient: selectedCategory.name === 'Cooking' ? selectedIngredient.displayName : undefined,
               resultValue: convertedValue,
             }),
             signal: controller.signal,
@@ -73,25 +154,24 @@ const Converter: React.FC = () => {
       setResult('');
       setFunFact('');
     }
-  }, [inputValue, fromUnit, toUnit, selectedCategory]);
+  }, [inputValue, fromUnit, toUnit, selectedCategory, selectedIngredient, convertCookingValue]);
 
   // Reset units when category changes
   useEffect(() => {
-    const newFromUnit = selectedCategory.units[0];
-    const newToUnit = selectedCategory.units[1];
-    setFromUnit(newFromUnit);
-    setToUnit(newToUnit);
+    const pending = pendingQuickConversion.current;
+    if (pending && pending.categoryName === selectedCategory.name) {
+      pendingQuickConversion.current = null;
+      applyUnitsForCategory(selectedCategory, pending.fromUnitName, pending.toUnitName);
+      setInputValue(pending.inputValue);
+    } else {
+      applyUnitsForCategory(selectedCategory);
+    }
     if (selectedCategory.name === 'Currency') {
-      // Warm the currency rates cache; ignore failures
-      fetchCurrencyRates().then(() => {
-        const parsed = Number(sanitizeNumericInput(inputValue || ''));
-        if (inputValue && inputValue.trim() !== '' && !isNaN(parsed)) {
-          const convertedValue = convertValue(parsed, newFromUnit, newToUnit, selectedCategory);
-          setResult(formatNumber(convertedValue));
-        }
+      fetchCurrencyRates().catch(() => {
+        // ignore fetch errors; fallback conversions still work
       });
     }
-  }, [selectedCategory, inputValue]);
+  }, [selectedCategory, applyUnitsForCategory]);
 
   const handleCategoryChange = (categoryName: string) => {
     const category = conversionCategories.find(cat => cat.name === categoryName);
@@ -151,17 +231,19 @@ const Converter: React.FC = () => {
     const category = conversionCategories.find(cat => cat.name === categoryName);
     if (!category) return;
 
-    // Set the category
-    setSelectedCategory(category);
-
-    // Find the units
-    const fromUnit = getUnitByName(category, fromUnitName);
-    const toUnit = getUnitByName(category, toUnitName);
-
-    if (fromUnit && toUnit) {
-      setFromUnit(fromUnit);
-      setToUnit(toUnit);
-      setInputValue(fromValue.toString());
+    const valueString = fromValue.toString();
+    if (selectedCategory.name === category.name) {
+      pendingQuickConversion.current = null;
+      applyUnitsForCategory(category, fromUnitName, toUnitName);
+      setInputValue(valueString);
+    } else {
+      pendingQuickConversion.current = {
+        categoryName: category.name,
+        fromUnitName,
+        toUnitName,
+        inputValue: valueString,
+      };
+      setSelectedCategory(category);
     }
   };
 
@@ -198,6 +280,7 @@ const Converter: React.FC = () => {
       'Weight': 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
       'Temperature': 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
       'Volume': 'M12 2.25c-3.5 3.5-6.75 7.25-6.75 10.5a6.75 6.75 0 1013.5 0c0-3.25-3.25-7-6.75-10.5z',
+    'Cooking': 'M12 2l3 8H9l3-8zm-4 10h8v8a4 4 0 11-8 0v-8z',
       'Area': 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z',
       'Speed': 'M13 10V3L4 14h7v7l9-11h-7z',
       'Time': 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
@@ -216,6 +299,7 @@ const Converter: React.FC = () => {
       'Weight': 'text-purple-500',
       'Temperature': 'text-red-500',
       'Volume': 'text-blue-500',
+    'Cooking': 'text-orange-500',
       'Area': 'text-lime-600',
       'Speed': 'text-amber-500',
       'Time': 'text-gray-600',
@@ -277,6 +361,12 @@ const Converter: React.FC = () => {
     'Energy': [
       { fromValue: 1, fromUnit: 'Kilowatt-hours', toUnit: 'Joules', title: '1 kWh = 3,600,000 J', subtitle: 'Kilowatt-hours to Joules' },
     ],
+    'Cooking': [
+      { fromValue: 1, fromUnit: 'Cups (US)', toUnit: 'Tablespoons (US)', title: '1 cup = 16 tbsp', subtitle: 'Cups to Tablespoons' },
+      { fromValue: 1, fromUnit: 'Tablespoons (US)', toUnit: 'Teaspoons (US)', title: '1 tbsp = 3 tsp', subtitle: 'Tablespoons to Teaspoons' },
+      { fromValue: 0.25, fromUnit: 'Cups (US)', toUnit: 'Milliliters', title: '¼ cup ≈ 59 mL', subtitle: 'Cups to Milliliters' },
+      { fromValue: 1, fromUnit: 'Fluid Ounces (US)', toUnit: 'Tablespoons (US)', title: '1 fl oz = 2 tbsp', subtitle: 'Fluid ounces to tablespoons' },
+    ],
     'Currency': [
       { fromValue: 100, fromUnit: 'US Dollar', toUnit: 'Euro', title: 'USD → EUR', subtitle: '100 USD to Euro' },
       { fromValue: 100, fromUnit: 'US Dollar', toUnit: 'Canadian Dollar', title: 'USD → CAD', subtitle: '100 USD to Canadian Dollar' },
@@ -321,6 +411,22 @@ const Converter: React.FC = () => {
         </div>
         
         <div className="p-8">
+          {selectedCategory.name === 'Cooking' && (
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Ingredient (adjusts weight conversions)</label>
+              <select
+                value={selectedIngredientId}
+                onChange={(e) => setSelectedIngredientId(e.target.value)}
+                className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none font-medium appearance-none cursor-pointer transition-all duration-200"
+              >
+                {cookingIngredients.map((ingredient) => (
+                  <option key={ingredient.id} value={ingredient.id}>
+                    {ingredient.displayName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             {/* From Section */}
             <div id="from-section" className="space-y-4 w-full md:w-96">
@@ -348,7 +454,7 @@ const Converter: React.FC = () => {
                 >
                   {selectedCategory.units.map((unit) => (
                     <option key={unit.name} value={unit.name}>
-                      {unit.name} ({unit.symbol})
+                      {formatUnitLabel(unit)}
                     </option>
                   ))}
                 </select>
@@ -401,7 +507,7 @@ const Converter: React.FC = () => {
                 >
                   {selectedCategory.units.map((unit) => (
                     <option key={unit.name} value={unit.name}>
-                      {unit.name} ({unit.symbol})
+                      {formatUnitLabel(unit)}
                     </option>
                   ))}
                 </select>
@@ -488,6 +594,12 @@ const Converter: React.FC = () => {
             </div>
           ))}
         </div>
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Need formulas and industry examples?{' '}
+          <Link href="/converters" className="text-indigo-600 font-semibold hover:text-indigo-800">
+            Open the converter playbooks
+          </Link>
+        </p>
       </div>
 
       {/* Mobile Ad Space - Only visible on mobile/tablet */}

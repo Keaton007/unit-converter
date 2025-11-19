@@ -110,6 +110,35 @@ export const volumeUnits: ConversionCategory = {
   ],
 };
 
+// Cooking conversions (base unit: milliliters)
+export const cookingUnits: ConversionCategory = {
+  name: 'Cooking',
+  baseUnit: 'milliliters',
+  units: [
+    { name: 'Milliliters', symbol: 'mL', factor: 1 },
+    { name: 'Liters', symbol: 'L', factor: 1000 },
+    { name: 'Cups (US)', symbol: 'cup (US)', factor: 236.588 },
+    { name: 'Cups (Metric)', symbol: 'cup (Metric)', factor: 250 },
+    { name: 'Fluid Ounces (US)', symbol: 'fl oz (US)', factor: 29.5735 },
+    { name: 'Fluid Ounces (UK)', symbol: 'fl oz (UK)', factor: 28.4131 },
+    { name: 'Tablespoons (US)', symbol: 'tbsp (US)', factor: 14.7868 },
+    { name: 'Tablespoons (Metric)', symbol: 'tbsp (Metric)', factor: 15 },
+    { name: 'Teaspoons (US)', symbol: 'tsp (US)', factor: 4.92892 },
+    { name: 'Teaspoons (Metric)', symbol: 'tsp (Metric)', factor: 5 },
+    { name: 'Pints (US)', symbol: 'pt (US)', factor: 473.176 },
+    { name: 'Pints (UK)', symbol: 'pt (UK)', factor: 568.261 },
+    { name: 'Quarts (US)', symbol: 'qt (US)', factor: 946.353 },
+    { name: 'Eighth Cup (US)', symbol: '⅛ cup', factor: 29.5735 },
+    { name: 'Tablespoons (Baking)', symbol: 'tbsp (Baking)', factor: 12.5 },
+    { name: 'Dash', symbol: 'dash', factor: 0.616115 },
+    { name: 'Pinch', symbol: 'pinch', factor: 0.3080575 },
+    { name: 'Grams', symbol: 'g', factor: 1 },
+    { name: 'Kilograms', symbol: 'kg', factor: 1000 },
+    { name: 'Ounces', symbol: 'oz', factor: 28.3495 },
+    { name: 'Pounds', symbol: 'lb', factor: 453.592 },
+  ],
+};
+
 // Area conversions (base unit: square meters)
 export const areaUnits: ConversionCategory = {
   name: 'Area',
@@ -301,6 +330,7 @@ export const conversionCategories: ConversionCategory[] = [
   weightUnits,
   temperatureUnits,
   volumeUnits,
+  cookingUnits,
   areaUnits,
   speedUnits,
   timeUnits,
